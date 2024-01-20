@@ -32,7 +32,7 @@ char gFilename[64];
 /// 
 /// </summary>
 void dumpFIO() {
-  Serial.print("FIO: ");
+  Serial.printf("FIO: %0x04x= ", FIO_CMD);
   for (uint16_t c = FIO_CMD; c < FIO_OFFSET + 1; c++) {
     Serial.printf(" %02x", mem[c]);
   }
@@ -45,7 +45,6 @@ void dumpFIO() {
 void cpFilename() {
   uint8_t len = mem[FIO_FNLEN];
   uint16_t fn = mem[FIO_FILE] + ((uint16_t)mem[FIO_FILE+1] << 8);
-//  Serial.printf("***D: ptr = %04x, %02d\n", fn, len);
 
   for (uint8_t ch = 0; ch < len; ch++) {
     gFilename[ch] = mem[fn + ch];
@@ -87,7 +86,15 @@ void listDirectory(const uint8_t device, const char *directory) {
   sdCloseDir();
 #endif
 
-  log("\n");
+}
+
+/// <summary>
+/// change directory
+/// </summary>
+/// <param name="directory"></param>
+
+void changeDirectory(const uint8_t device, const char* directory) {
+  strcpy(gCurrentDirectory, directory);
 }
 
 /// <summary>
@@ -140,17 +147,31 @@ Serial.printf("***D: FIO_LOAD: %s on %d @0x%04x\n", gFilename, mem[FIO_DEVICE], 
     
     case FIO_SAVE:
       cpFilename();
-      Serial.printf("***D: FIO_SAVE: %s on %d @0x%04x:@0x%04x\n", gFilename, mem[FIO_DEVICE], saddr, eaddr);
+Serial.printf("***D: FIO_SAVE: %s on %d @0x%04x:@0x%04x\n", gFilename, mem[FIO_DEVICE], saddr, eaddr);
       writeFile(mem[FIO_DEVICE], gFilename, saddr, eaddr - saddr);
       break;
     
     case FIO_DIR:
+      cpFilename();
+Serial.printf("***D: FIO_DIR: %s on %d\n", gFilename, mem[FIO_DEVICE]);
+      if (strcmp(gFilename, "") == 0)
+        listDirectory(mem[FIO_DEVICE], gCurrentDirectory);
+      else
+        listDirectory(mem[FIO_DEVICE], gFilename);
+      
       break;
     
     case FIO_CD:
+      cpFilename();
+Serial.printf("***D: FIO_CD: %s on %d\n", gFilename, mem[FIO_DEVICE]);
+      if (strcmp(gFilename, "") == 0)
+        changeDirectory(mem[FIO_DEVICE], "/");
+      else
+        changeDirectory(mem[FIO_DEVICE], gFilename);
       break;
 
     default: // illegal command
+      Serial.println("***E: Illegal FIO command");
       break;
     }
 

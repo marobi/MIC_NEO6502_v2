@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 extern char gCurrentDirectory[];  // default = "/"
 
 bool initStorage();
+void changeDirectory(const uint8_t device, const char* directory);
 void listDirectory(const uint8_t device, const char* directory);
 uint8_t readFile(const uint8_t device, const char* fileName, const uint16_t loadAddress, const uint16_t offset);
 uint8_t writeFile(const uint8_t device, const char* fileName, const uint16_t startAddress, const uint32_t size);
