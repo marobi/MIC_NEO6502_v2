@@ -95,6 +95,8 @@ void initDisplay();
 void helloDisplay();
 void swapDisplay();
 
+void cmdClearDisplay();
+
 void log(const char* fmt, ...);
 
 #endif

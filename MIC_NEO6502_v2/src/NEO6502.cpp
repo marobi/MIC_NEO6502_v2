@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "bios.h"
 #include "mon.h"
 #include "basic.h"
-#include "demo.h"
 
 #define MAX_SYSCONFIG_ROM_CARTRIDGES  8
 
@@ -94,7 +93,6 @@ void NEO6502::init()
   helloDisplay();
 
   initStorage();
-  listDirectory(0, "/");
 
   initMemory();
 
@@ -103,7 +101,6 @@ void NEO6502::init()
   installROMCartridge(0, "BIOS v2.0",         bios_bin);
   installROMCartridge(1, "Supermon64 v1.2io", supermon64_bin);
   installROMCartridge(2, "EhBasic p2.22p5a",  basic_bin);
-  installROMCartridge(3, "C-demo @1000",      demo_bin);
 
   initSound();
 
@@ -171,7 +168,8 @@ void NEO6502::setSysConfig(const uint8_t vId)
     addROM(gSysConfig[vId].Slot[c]);
   }
 
-  writeFile(0, "/dump.dat", 0, MEMORY_SIZE);
+  writeFile(0, "/memdump.dat", 0, MEMORY_SIZE);
+  cmdClearDisplay();
 }
 
 /// <summary>

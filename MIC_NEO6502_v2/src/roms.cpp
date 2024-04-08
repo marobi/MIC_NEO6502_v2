@@ -31,18 +31,18 @@ typedef struct {
 /// ROM cartridge header definition
 /// </summary>
 typedef struct {            // 16 bytes
-  uint8_t	SOH;              // fixed 0x5A
-  uint8_t	VERSION_MINOR;    // 0x01
-  uint8_t	VERSION_MAJOR;    // 0x01
-  uint8_t	STARTADDRESS_L;   // load address
-  uint8_t	STARTADDRESS_H;
-  uint8_t	SIZE_L;           // ROM size
-  uint8_t	SIZE_H;
-  uint8_t	TYPE;             // ROM type
-  uint8_t	NMI_L;            // NMI vector
-  uint8_t	NMI_H;
-  uint8_t	RESET_L;          // RESET vector
-  uint8_t	RESET_H;
+  uint8_t SOH;              // fixed 0x5A
+  uint8_t VERSION_MINOR;    // 0x01
+  uint8_t VERSION_MAJOR;    // 0x01
+  uint8_t STARTADDRESS_L;   // load address
+  uint8_t STARTADDRESS_H;
+  uint8_t SIZE_L;           // ROM size
+  uint8_t SIZE_H;
+  uint8_t TYPE;             // ROM type
+  uint8_t NMI_L;            // NMI vector
+  uint8_t NMI_H;
+  uint8_t RESET_L;          // RESET vector
+  uint8_t RESET_H;
   uint8_t IRQ_L;            // IRQ vector
   uint8_t IRQ_H;
   uint8_t CSUM;             // header checksum

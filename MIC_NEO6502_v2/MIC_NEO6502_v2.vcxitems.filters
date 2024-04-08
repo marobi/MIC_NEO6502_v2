@@ -55,9 +55,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)src\config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)src\demo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)src\memory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
